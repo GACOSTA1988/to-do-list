@@ -48,7 +48,7 @@ function displayToDoList(listToDisplay) {
   var startList = $("span#outputSpan");
   var blankString = "";
   listToDisplay.list.forEach(function(item) {
-    blankString += "<li id=" + item.id + ">" + item.entry1 + "</li>" + "<button class=" + "delete" + " " + "type=" + "submit"+ ">" + "Check Off!" + "</button>";
+    blankString += "<li id=" + item.id + ">" + item.entry1 + "</li>" + "<button class=" + "delete" + " " + "id=" + item.id + " " + "type=" + "submit"+ ">" + "Check Off!" + "</button>";
     console.log(item.entry1);
     // blankString += "<li id=" + item.id + ">" + item.entry2 + "</li>" + "<button id=" + "item2" + ">" + "Check Off!" + "</button>";
     // blankString += "<li id=" + item.id + ">" + item.entry3 + "</li>" + "<button id=" + "item3" + ">" + "Check Off!" + "</button>";
@@ -56,9 +56,21 @@ function displayToDoList(listToDisplay) {
   startList.html(blankString);
 };
 
+// function attachListener() {
+//   $(".delete").on("click", ".delete", function() {
+//     toDoList.deleteToDo(this.id);
+//     console.log(this.id);
+//     console.log("hello");
+//     $(".output").hide();
+//     toDoList.displayToDoList();
+//   })
+// }
+
 $(document).ready(function() {
   $("form#inputForm").submit(function(event) {
+    // attachListener();
     event.preventDefault();
+    // debugger;
     var inputtedEntry1 = $("input#listItem1").val();
     console.log(inputtedEntry1);
     console.log(listItem1);
@@ -69,19 +81,20 @@ $(document).ready(function() {
     toDoList.addToDo(newToDo);
     console.log(newToDo);
     displayToDoList(toDoList);
-
     // $("button#item2").click(function() {
     //   toDoList.deleteToDo(inputtedEntry2);
     // });
     // $("button#item3").click(function() {
     //   toDoList.deleteToDo(inputtedEntry3);
     // });
-    $(".delete").click(function() {
-      toDoList.deleteToDo(newToDo.id);
-      console.log("removed");
-      console.log(newToDo.id);
-      
-  });
+});
+
+$("body").on('click',".delete",function() {
+  toDoList.deleteToDo(this.id);
+  displayToDoList(toDoList);
+  // console.log("removed");
+  // console.log(newToDo.id);
+  console.log(this.id);
 });
   // displayToDoList(toDoList);
 });
