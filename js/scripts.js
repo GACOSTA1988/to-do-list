@@ -9,13 +9,19 @@ ToDoList.prototype.addToDo = function(item) {
 }
 
 ToDoList.prototype.deleteToDo = function(id) {
+  console.log(id);
+  console.log(this.list);
 for ( var i = 0; i < this.list.length; i++) {
   if (this.list[i]) {
+    console.log("i exists");
+    console.log(this.list[i].id);
     if (this.list[i].id == id) {
       delete this.list[i];
+      console.log(this.list);
       return true;
     }
   }
+  console.log("fales");
   return false;
 };
 }
@@ -54,6 +60,13 @@ function displayToDoList(listToDisplay) {
     // blankString += "<li id=" + item.id + ">" + item.entry3 + "</li>" + "<button id=" + "item3" + ">" + "Check Off!" + "</button>";
   });
   startList.html(blankString);
+  $(".delete").click(function() {
+    toDoList.deleteToDo(this.id);
+    displayToDoList(toDoList);
+    // console.log("removed");
+    // console.log(newToDo.id);
+    console.log(this.id);
+  });
 };
 
 // function attachListener() {
@@ -87,14 +100,10 @@ $(document).ready(function() {
     // $("button#item3").click(function() {
     //   toDoList.deleteToDo(inputtedEntry3);
     // });
+
 });
 
-$("body").on('click',".delete",function() {
-  toDoList.deleteToDo(this.id);
-  displayToDoList(toDoList);
-  // console.log("removed");
-  // console.log(newToDo.id);
-  console.log(this.id);
-});
+
+
   // displayToDoList(toDoList);
 });
